@@ -8,10 +8,14 @@ let loadPage = async () => {
   console.log(dishes);
 
   dishes.data.forEach((dish) => {
-    document.querySelector(
-      "#menu"
-    ).innerHTML += `<li><p>${dish.attributes.name} - ${dish.attributes.price} kr - ${dish.attributes.category.data?.attributes.name}</p>
-    <img  height="100" src="http://localhost:1337${dish.attributes.picture.data?.attributes.url}" />
+    document.querySelector("#menu").innerHTML += `<li><p>${
+      dish.attributes.name
+    } - ${dish.attributes.price} kr - ${dish.attributes.categories.data.map(
+      (cat) => cat.attributes.name
+    )}</p>
+    <img  height="100" src="http://localhost:1337${
+      dish.attributes.picture.data?.attributes.url
+    }" />
     </li>`;
   });
 };
@@ -19,13 +23,21 @@ let loadPage = async () => {
 let createDish = async () => {
   let inputName = document.querySelector("#dishName").value;
   let inputPrice = +document.querySelector("#dishPrice").value;
-  let inputCategory = document.querySelector("#dishCategory").value;
+
+  let inputCategories = [];
+  let checkedCategories = document.querySelectorAll(
+    "[name='category']:checked"
+  );
+  checkedCategories.forEach((checkbox) => {
+    inputCategories.push(checkbox.value);
+  });
+  console.log(inputCategories);
   axios.post("http://localhost:1337/api/dishes", {
     data: {
       name: inputName,
       price: inputPrice,
-      category: inputCategory,
-      picture: "5"
+      categories: inputCategories,
+      picture: 2,
     },
   });
 };

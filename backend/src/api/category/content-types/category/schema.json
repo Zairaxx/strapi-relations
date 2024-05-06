@@ -17,9 +17,9 @@
     },
     "dishes": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::dish.dish",
-      "mappedBy": "category"
+      "mappedBy": "categories"
     }
   }
 }

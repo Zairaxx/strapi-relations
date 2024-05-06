@@ -377,7 +377,7 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
     name: Attribute.String;
     dishes: Attribute.Relation<
       'api::category.category',
-      'oneToMany',
+      'manyToMany',
       'api::dish.dish'
     >;
     createdAt: Attribute.DateTime;
@@ -403,6 +403,7 @@ export interface ApiDishDish extends Schema.CollectionType {
     singularName: 'dish';
     pluralName: 'dishes';
     displayName: 'Dish';
+    description: '';
   };
   options: {
     draftAndPublish: false;
@@ -411,9 +412,9 @@ export interface ApiDishDish extends Schema.CollectionType {
     name: Attribute.String & Attribute.Required;
     price: Attribute.Decimal;
     picture: Attribute.Media;
-    category: Attribute.Relation<
+    categories: Attribute.Relation<
       'api::dish.dish',
-      'manyToOne',
+      'manyToMany',
       'api::category.category'
     >;
     createdAt: Attribute.DateTime;
@@ -758,7 +759,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -786,6 +786,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'plugin::users-permissions.user',
       'manyToOne',
       'plugin::users-permissions.role'
+    >;
+    favoriteDish: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToOne',
+      'api::dish.dish'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
