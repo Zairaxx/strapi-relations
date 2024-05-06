@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "dishes",
+  "info": {
+    "singularName": "dish",
+    "pluralName": "dishes",
+    "displayName": "Dish"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "picture": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "dishes"
+    }
+  }
+}
